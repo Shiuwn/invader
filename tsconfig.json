@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target":"ES2015",
+    "module":"ES2015",
+    "strict":true,
+  },
+  "extends": "@tsconfig/recommended/tsconfig.json",
+  "display":"Recommended"
+}
