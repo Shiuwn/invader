@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "rollup --config"
+    "start": "rollup --config"
   },
   "dependencies": {
     "rollup": "^2.52.3",
