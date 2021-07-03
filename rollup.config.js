@@ -15,6 +15,6 @@ export default {
       target:'dist/index.html'
     }),
     serve({port:3000,contentBase:'dist'}),
-    livereload(),
+    livereload({watch:'dist'}),
   ]
 }

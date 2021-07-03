@@ -20,9 +20,11 @@ export type Context2D = CanvasRenderingContext2D
 export class Stage{
 
   protected elements:IElement[];
-
-  constructor(){
-    this.elements = []
+  protected context:Context2D;
+  constructor(context:Context2D){
+    this.elements = [];
+    this.context = context;
+    this.context.clearRect(0,0,this.context.canvas.width,this.context.canvas.height);
   }
 
   add(el:IElement){
@@ -40,6 +42,7 @@ export class Stage{
   }
 
   render(){
+    this.context.clearRect(0,0,this.context.canvas.width,this.context.canvas.height);
     this.elements.forEach(el=>el.render())
   }
   
