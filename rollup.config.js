@@ -8,6 +8,9 @@ export default {
     file:'./dist/main.js',
     format:'es'
   },
+  watch: {
+    include: 'src/**'
+  },
   plugins:[
     typescript(),
     htmlTemplate({
