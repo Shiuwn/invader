@@ -6,7 +6,6 @@ export default function loadResource(resourceList:ResourceList){
 }
 enum Status{
   LOADING,
-  FINISH,
   IDLE
 }
 interface IImageThread{

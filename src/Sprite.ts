@@ -21,10 +21,12 @@ export class Stage{
 
   protected elements:IElement[];
   protected context:Context2D;
-  constructor(context:Context2D){
+  protected stageColor:string|CanvasPattern|CanvasGradient
+  constructor({context,stageColor}:{context:Context2D,stageColor:string|CanvasGradient|CanvasPattern}){
     this.elements = [];
     this.context = context;
     this.context.clearRect(0,0,this.context.canvas.width,this.context.canvas.height);
+    this.stageColor = stageColor;
   }
 
   add(el:IElement){
@@ -43,9 +45,38 @@ export class Stage{
 
   render(){
     this.context.clearRect(0,0,this.context.canvas.width,this.context.canvas.height);
+    this.context.save();
+    this.context.fillStyle = this.stageColor;
+    this.context.fillRect(0,0,this.context.canvas.width,this.context.canvas.height);
+    this.context.restore();
     this.elements.forEach(el=>el.render())
   }
   
+  static loadImages(srcList:string[]){
+    return new Promise<Promise<HTMLImageElement>[]>(resolve=>{
+      resolve(srcList.map(src => {
+        return new Promise((resolve, reject) => {
+          const image = new Image();
+          image.src = src;
+          image.onload = () => {
+            resolve(image);
+          };
+
+          image.onerror = (e) => {
+            reject(e)
+          };
+
+        })
+      }) as Promise<HTMLImageElement>[]
+      )
+    }).then(list=>Promise.all(list)).then(images=>{
+      const imageMap:{[key:string]:HTMLImageElement} = {};
+      srcList.forEach((src,i)=>{
+        imageMap[src] = images[i];
+      });
+      return imageMap
+    });
+  }
 }
 export interface SpriteProto{
   image:HTMLImageElement
